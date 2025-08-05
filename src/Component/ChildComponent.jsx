@@ -1,17 +1,32 @@
 import React from 'react'
+import GrandChildComponent from './GrandChildComponent';
+import { MessageContext } from '../App';
 
-function ChildComponent({receiveChildData}) {
+function ChildComponent({message}) {
 
-    let message = "Hello I am child" ;
 
-    let handleSend = () =>{
-        receiveChildData(message);
-    }
+  let sumCoins = (coins)=>{
+
+    return (coins.reduce((prev,curr)=> prev + curr ,0))
     
+  }
   return (
     <div>
-        <h3>Child Component</h3>
-        <button onClick={handleSend}>sendParent</button>
+      <p>ChildComponent</p>
+      <MessageContext.Consumer>
+          {
+            (data)=>{
+              return (
+                <div>
+                    <p>message : {data.message}</p>
+                    <p>sum of coins :{sumCoins(data.coins)}</p>
+                </div>
+              )
+            }
+          }
+      </MessageContext.Consumer>
+      <hr></hr>
+      <GrandChildComponent/>
     </div>
   )
 }

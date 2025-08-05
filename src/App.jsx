@@ -1,29 +1,17 @@
+import React, { createContext, useState } from 'react'
+import ChildComponent from './Component/ChildComponent';
 
-import React from 'react'
-import { useRef } from 'react';
+let MessageContext = createContext();
 
 function App() {
-
-  let inputRef = useRef(document.body) ;
-
-  let handleInput = ()=>{
-    let colors = ['red', 'green', 'blue','yellow','pink']
-
-    let random = colors[Math.floor(Math.random()*5)];
-
-    inputRef.current.style.backgroundColor = random ;
-  }
+  let [message, setMessage] = useState("Hello this is message");
+  let [coins, setCoins] = useState([1,2,3,4,5,6]) ;
 
   return (
-    <div>
-      <input
-        type='text'
-        placeholder='enter name'
-       
-      />
-      <button   onClick={handleInput}>save</button>
-    </div>
+   <MessageContext.Provider value={{message, coins}}>
+      <ChildComponent/>
+   </MessageContext.Provider>
   )
 }
 
-export default App ;
+export {App as default, MessageContext} ;
