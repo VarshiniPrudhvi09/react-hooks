@@ -1,41 +1,14 @@
 import { createRoot } from 'react-dom/client'
 import App from './App.jsx'
-import { createStore } from 'redux'
-
-let noteReducer = (state=0, action)=>{
-    switch(action.type){
-        case "Incr":
-            return state + 1;
-        case "Decr":
-            return state - 1;
-    }
-
-}
+import { createStore } from 'redux' ;
+import noteReducer from './reducer/noteReducer.jsx';
+import { Provider } from 'react-redux';
 const store = createStore(noteReducer) ;
 
-store.subscribe(()=>{
-    console.log(store.getState())
-})
-store.dispatch({
-    type:'Incr'
-})
-
-store.dispatch({
-    type:'Incr'
-})
-
-store.dispatch({
-    type:'Incr'
-})
-
-
-
-store.dispatch({
-    type:"Decr"
-})
-
 createRoot(document.getElementById('root')).render(
-  
-    <App />
+  <Provider store = {store}>
+        <App />
+  </Provider>
+    
  
 )
